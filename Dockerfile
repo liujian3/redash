@@ -68,9 +68,10 @@ RUN apt-get update && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
-ARG databricks_odbc_driver_url=https://databricks.com/wp-content/uploads/2.6.10.1010-2/SimbaSparkODBC-2.6.10.1010-2-Debian-64bit.zip
-RUN wget --quiet $databricks_odbc_driver_url -O /tmp/simba_odbc.zip \
-  && chmod 600 /tmp/simba_odbc.zip \
+#ARG databricks_odbc_driver_url=https://databricks.com/wp-content/uploads/2.6.10.1010-2/SimbaSparkODBC-2.6.10.1010-2-Debian-64bit.zip
+#RUN wget --quiet $databricks_odbc_driver_url -O /tmp/simba_odbc.zip \
+COPY SimbaSparkODBC-2.6.10.1010-2-Debian-64bit.zip /tmp/simba_odbc.zip
+RUN chmod 600 /tmp/simba_odbc.zip \
   && unzip /tmp/simba_odbc.zip -d /tmp/ \
   && dpkg -i /tmp/SimbaSparkODBC-*/*.deb \
   && echo "[Simba]\nDriver = /opt/simba/spark/lib/64/libsparkodbc_sb64.so" >> /etc/odbcinst.ini \
